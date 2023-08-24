@@ -25,4 +25,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bil" level="project" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="3ae2e8c2-ae3a-4450-b7db-65344896e4f6" />
+  </component>
 </module>

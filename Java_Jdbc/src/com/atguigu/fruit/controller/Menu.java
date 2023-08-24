@@ -33,29 +33,51 @@ public class Menu {
 
          lists.forEach(System.out::println);
     }
+
     public void addFruits() {
         Fruit fruit = new Fruit();
-        System.out.print("请输入添加的水果名称: ");
-        fruit.setFname(input.next());
+        System.out.print("输入你要添加的水果:");
+        String name = input.next();
+        System.out.print("请输入库存数量: ");
+        int count = input.nextInt();
+        fruit = fruitDaoImpl.getFruitByName(name);
+        if (fruit!= null) {
+            updateFruits(fruit);
+        }else {
+            insertFruits(name, count);
+        }
+    }
+
+    public void insertFruits(String name , int count) {
+        Fruit fruit = new Fruit();
+        fruit.setFname(name);
+        fruit.setFcount(count);
         System.out.print("请输入单价: ");
         fruit.setPrice(input.nextInt());
-        System.out.print("请输入库存总量: ");
-        fruit.setFcount(input.nextInt());
         System.out.print("请输入添加备注: ");
         fruit.setRemark(input.next());
         fruitDaoImpl.addFruit(fruit);
+    }
+    public void updateFruits(Fruit fruit) {
+        fruitDaoImpl.updateFruit(fruit);
     }
     public void getFruitsByNames() {
         System.out.print("输入你要查询的水果:");
         String name = input.next();
         Fruit fruit = fruitDaoImpl.getFruitByName(name);
-        System.out.println( fruit.toString());
+        if (fruit!= null) {
+            System.out.println( fruit.toString());
+        }
+        else {
+            System.out.println("数据库中没有这个水果");
+        }
     }
-    public void updateFruits() {}
+
 
     public void deleteFruits() {
         System.out.print("请输入要删除的水果名称: ");
         String name = input.next();
+        fruitDaoImpl.deleteFruit(name);
 
     }
 }
