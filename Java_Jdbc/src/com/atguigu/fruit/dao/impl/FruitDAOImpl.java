@@ -14,50 +14,12 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
 
     @Override
     public List<Fruit> getAllFruit() {
-        List<Fruit> fruits;
-        try {
-
-            String sql = "SELECT * FROM t_fruit";
-
-            fruits = new ArrayList<>();
-            while (rs.next()) {
-                int fid = rs.getInt("fid");
-                String fname = rs.getString("fname");
-                int price = rs.getInt("price");
-                int fcount = rs.getInt("fcount");
-                String remark = rs.getString("remark");
-                Fruit fruit = new Fruit(fid, fname, price, fcount, remark);
-                fruits.add(fruit);
-            }
-
-        } catch ( SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close(rs, pstmt, conn);
-        }
-        return fruits;
+        return executeQuery("SELECT * FROM t_fruit");
     }
 
     @Override
     public Fruit getFruitByName(String name) {
-        try {
-
-            String sql = "SELECT * FROM t_fruit WHERE fname = ?";
-
-            if (rs.next()) {
-                int fid = rs.getInt("fid");
-                String fname = rs.getString("fname");
-                int price = rs.getInt("price");
-                int fcount = rs.getInt("fcount");
-                String remark = rs.getString("remark");
-                return new Fruit(fid, fname, price, fcount, remark);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            close(rs, pstmt, conn);
-        }
-        return null;
+        return load("SELECT * FROM t_fruit WHERE fname =?",name);
     }
 
     @Override
