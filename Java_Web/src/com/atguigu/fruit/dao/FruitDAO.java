@@ -15,4 +15,6 @@ public interface FruitDAO {
     public boolean deleteFruit(String name);
 
     public Fruit getFruitByName(String name);
+
+    public Fruit getFruitById(int id);
 }

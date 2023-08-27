@@ -1,7 +1,6 @@
 package com.atguigu.fruit.servlets;
 
 import com.atguigu.fruit.dao.FruitDAO;
-import com.atguigu.fruit.dao.base.BaseDAO;
 import com.atguigu.fruit.dao.impl.FruitDAOImpl;
 import com.atguigu.fruit.dao.myspringmvc.ViewBaseServlet;
 import com.atguigu.fruit.pojo.Fruit;
@@ -18,12 +17,12 @@ import java.util.List;
 /**
  * 调用访问
  */
-@WebServlet("/index")
+@WebServlet("/index")//Servlet3.0开始支持注解
 public class IndexServlet extends ViewBaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         FruitDAO fruitDAO = new FruitDAOImpl();
-        List<Fruit> fruitlist = new ArrayList<>();
+        List<Fruit> fruitlist;
         fruitlist = fruitDAO.getAllFruit();
         HttpSession session = request.getSession();
         session.setAttribute("fruitlist", fruitlist); //设置属性,保存session作用域

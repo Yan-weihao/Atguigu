@@ -61,19 +61,21 @@ public abstract class BaseDAO <T>{ //抽象类
         try {
             conn = getConnection();
             insertfalg = sql.trim().toUpperCase().startsWith("INSERT");
-            if (insertfalg){
+            if (insertfalg){ //是插入语句
                 pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
             }else {
                 pstmt = conn.prepareStatement(sql);
             }
-            int count = pstmt.executeUpdate();
             for (int i = 0; i < params.length; i++) {
                 pstmt.setObject(i + 1, params[i]);
             }
-            rs = pstmt.getGeneratedKeys();
-            if (rs.next()) {
-                return ((Long)rs.getLong(1)).intValue();
+            int count = pstmt.executeUpdate();
+            if (insertfalg) {
+                rs = pstmt.getGeneratedKeys();
+                if (rs.next()) {
+                    return ((Long)rs.getLong(1)).intValue();
+                }
             }
             return count;
         } catch ( SQLException e) {
