@@ -73,11 +73,10 @@ public class Menu {
         }
     }
 
-
-    public void deleteFruits() {
-        System.out.print("请输入要删除的水果名称: ");
-        String name = input.next();
-        fruitDaoImpl.deleteFruit(name);
-
-    }
+//    public void deleteFruits() {
+//        System.out.print("请输入要删除的水果名称: ");
+//        String name = input.next();
+//        fruitDaoImpl.deleteFruit(name);
+//
+//    }
 }

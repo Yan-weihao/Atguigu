@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/edit.css">
+    <script language="JavaScript" src="js/index.js"></script>
+    <title>水果添加库存页面</title>
+</head>
+<body>
+<div id="div_container">
+    <div id="div_fruit_list">
+        <p class="center f30">水果添加库存页面</p>
+        <form action="add.do" method="post" >
+<!--            <input type="hidden" name="fid" /> &lt;!&ndash; 隐藏fid&ndash;&gt;-->
+            <table id="tbl_fruit">
+                <tr>
+                    <th class="w20">水果名称</th>
+                    <td><input type="text" name="fname"/></td>
+                </tr>
+                <tr>
+                    <th class="w20">水果单价</th>
+                    <td><input type="text" name="price"/></td>
+                </tr>
+                <tr>
+                    <th class="w20">水果库存</th>
+                    <td><input type="text" name="fcount"/></td>
+                </tr>
+                <tr>
+                    <th class="w20">水果备注</th>
+                    <td><input type="text" name="remark"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="添加"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+l>

@@ -8,13 +8,17 @@ import java.util.List;
 public interface FruitDAO {
     public List<Fruit> getAllFruit();
 
+    public List<Fruit> getFruitPageNo(int pageNo);
+
     public boolean addFruit(Fruit fruit);
 
     public boolean updateFruit(Fruit fruit);
 
-    public boolean deleteFruit(String name);
+    public boolean deleteFruit(int id);
 
     public Fruit getFruitByName(String name);
 
     public Fruit getFruitById(int id);
+
+    public int getFruitCount();
 }

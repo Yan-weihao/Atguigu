@@ -18,6 +18,13 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
     }
 
     @Override
+    public List<Fruit> getFruitPageNo(int pageNo) {
+        pageNo = (pageNo - 1) * 5;
+        return executeQuery("SELECT * FROM t_fruit LIMIT ?, 5",pageNo); //五条数据一页
+    }
+
+
+    @Override
     public Fruit getFruitByName(String name) {
         return load("SELECT * FROM t_fruit WHERE fname =?",name);
     }
@@ -27,7 +34,10 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
         return load("SELECT * FROM t_fruit WHERE fid =?",id);
     }
 
-
+    @Override
+    public int getFruitCount() {
+      return ((Long)cont("SELECT count(*) FROM t_fruit")[0]).intValue();
+    }
     @Override
     public boolean addFruit(Fruit fruit) {
         String sql = "INSERT INTO t_fruit VALUES(0,?,?,?,?)";
@@ -42,12 +52,8 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
             return sum > 0;
     }
     @Override
-    public boolean deleteFruit(String name) { //使用删除
-
-        String sql = "DELETE FROM t_fruit WHERE fname =?";
-        return executeUpdate(sql, name) > 0;
-
+    public boolean deleteFruit(int id) { //使用删除
+        String sql = "DELETE FROM t_fruit WHERE fid =?";
+        return executeUpdate(sql, id) > 0;
     }
-
-
 }
