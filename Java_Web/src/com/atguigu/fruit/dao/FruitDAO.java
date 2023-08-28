@@ -8,7 +8,7 @@ import java.util.List;
 public interface FruitDAO {
     public List<Fruit> getAllFruit();
 
-    public List<Fruit> getFruitPageNo(int pageNo);
+    public List<Fruit> getFruitPageNo(int pageNo,String keyword);
 
     public boolean addFruit(Fruit fruit);
 
@@ -20,5 +20,5 @@ public interface FruitDAO {
 
     public Fruit getFruitById(int id);
 
-    public int getFruitCount();
+    public int getFruitCount(String keyword);
 }

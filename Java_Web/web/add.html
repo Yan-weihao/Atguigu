@@ -10,7 +10,8 @@
 <div id="div_container">
     <div id="div_fruit_list">
         <p class="center f30">水果添加库存页面</p>
-        <form action="add.do" method="post" >
+        <form action="/fruit.do" method="post" >
+            <input type="hidden" name="operate" value="add">
 <!--            <input type="hidden" name="fid" /> &lt;!&ndash; 隐藏fid&ndash;&gt;-->
             <table id="tbl_fruit">
                 <tr>

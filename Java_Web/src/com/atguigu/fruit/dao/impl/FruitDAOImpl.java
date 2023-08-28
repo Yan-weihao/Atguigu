@@ -18,9 +18,9 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
     }
 
     @Override
-    public List<Fruit> getFruitPageNo(int pageNo) {
+    public List<Fruit> getFruitPageNo(int pageNo ,String keyword) {
         pageNo = (pageNo - 1) * 5;
-        return executeQuery("SELECT * FROM t_fruit LIMIT ?, 5",pageNo); //五条数据一页
+        return executeQuery("select * from t_fruit  WHERE remark LIKE ? OR fname LIKE ? LIMIT ? , 5", "%"+keyword+"%","%"+keyword+"%",pageNo);
     }
 
 
@@ -35,8 +35,8 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
     }
 
     @Override
-    public int getFruitCount() {
-      return ((Long)cont("SELECT count(*) FROM t_fruit")[0]).intValue();
+    public int getFruitCount(String keyword) {
+      return ((Long)cont("select count(*) from t_fruit where fname like ? or remark like ?" , "%"+keyword+"%","%"+keyword+"%")[0]).intValue();
     }
     @Override
     public boolean addFruit(Fruit fruit) {
