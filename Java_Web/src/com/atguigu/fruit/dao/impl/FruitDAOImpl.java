@@ -4,8 +4,6 @@ import com.atguigu.fruit.dao.FruitDAO;
 import com.atguigu.fruit.dao.base.BaseDAO;
 import com.atguigu.fruit.pojo.Fruit;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
@@ -22,7 +20,6 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
         pageNo = (pageNo - 1) * 5;
         return executeQuery("select * from t_fruit  WHERE remark LIKE ? OR fname LIKE ? LIMIT ? , 5", "%"+keyword+"%","%"+keyword+"%",pageNo);
     }
-
 
     @Override
     public Fruit getFruitByName(String name) {
@@ -41,7 +38,7 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
     @Override
     public boolean addFruit(Fruit fruit) {
         String sql = "INSERT INTO t_fruit VALUES(0,?,?,?,?)";
-        return executeUpdate(sql, fruit.getFname(), fruit.getPrice(), fruit.getFcount(),fruit.getPrice()) >0;
+        return executeUpdate(sql, fruit.getFname(), fruit.getPrice(), fruit.getFcount(),fruit.getRemark()) >0;
     }
 
     @Override
