@@ -1,4 +1,4 @@
-package com.atguigu.fruit.dao.base;
+package com.atguigu.myssm.baseDao.base;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -6,13 +6,12 @@ import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public abstract class BaseDAO <T>{ //抽象类
     public final String DRIVE = "com.mysql.cj.jdbc.Driver";
     public final String URL = "jdbc:mysql://localhost:3306/fruitdb";
     public final String USER = "root";
-   public final String PASSWORD = "123456";
+    public final String PASSWORD = "123456";
     public Connection conn;
     public PreparedStatement pstmt;
     public ResultSet rs;

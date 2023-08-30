@@ -1,4 +1,4 @@
-package com.atguigu.fruit.util;
+package com.atguigu.myssm.util;
 
 /**
  * 字符串工具类
