@@ -95,8 +95,9 @@ public class DispatcherServlet extends ViewBaseServlet{
                     }
                 }
             }
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DispatcherServletException("DispatcherServlet出现异常");
         }
     }
 }

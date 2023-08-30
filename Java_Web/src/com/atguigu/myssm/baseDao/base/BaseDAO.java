@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseDAO <T>{ //抽象类
-    public final String DRIVE = "com.mysql.cj.jdbc.Driver";
-    public final String URL = "jdbc:mysql://localhost:3306/fruitdb";
-    public final String USER = "root";
-    public final String PASSWORD = "123456";
+
     public Connection conn;
     public PreparedStatement pstmt;
     public ResultSet rs;
@@ -28,32 +25,17 @@ public abstract class BaseDAO <T>{ //抽象类
             entityClass = Class.forName(actualType.getTypeName());//获取到实体类
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            throw new DAOException("BaseDAO类加载失败");
         }
 
     }
 
     public Connection getConnection() {
-
-        try {
-            Class.forName(DRIVE);
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException  | SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return ConnUtil.getConn();
     }
 
     public void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
-        try {
-            if (pstmt!= null) {
-                pstmt.close();
-            }
-            if (conn!= null) {
-                conn.close();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
     }
     protected int executeUpdate(String sql, Object... params) { //增删改（更新）
         boolean insertfalg = false;
@@ -79,10 +61,8 @@ public abstract class BaseDAO <T>{ //抽象类
             return count;
         } catch ( SQLException e) {
             e.printStackTrace();
-        }finally {
-            close(rs,pstmt,conn);
+            throw new DAOException("执行update语句失败");
         }
-        return 0 ;
     }
 
     //通过反射技术给obj对象的property属性赋propertyValue值(将值给到响应的类)
@@ -118,7 +98,7 @@ public abstract class BaseDAO <T>{ //抽象类
                 return columnCountArr;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DAOException("执行查询语句失败，统计中总数");
         }
 
       return null;
@@ -146,9 +126,7 @@ public abstract class BaseDAO <T>{ //抽象类
                 list.add(entity);
             }
         } catch (SQLException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }finally {
-            close(rs,pstmt,conn);
+            throw new DAOException("执行查询语句失败");
         }
         return list;
     }
@@ -173,7 +151,7 @@ public abstract class BaseDAO <T>{ //抽象类
             }
             return entity;
         } catch (SQLException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw new DAOException("执行单个查询语句失败");
         }
     }
 }
