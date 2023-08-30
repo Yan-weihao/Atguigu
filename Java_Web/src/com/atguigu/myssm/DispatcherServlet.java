@@ -4,6 +4,7 @@ import com.atguigu.myssm.util.StringUtil;
 import com.atguigu.myssm.ioc.BeanFactory;
 import com.atguigu.myssm.ioc.ClassPathXmlApplicationContext;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +29,18 @@ public class DispatcherServlet extends ViewBaseServlet{
      */
     public void init() throws ServletException {
         super.init();
-        beanFactory = new ClassPathXmlApplicationContext();
+       // beanFactory = new ClassPathXmlApplicationContext();
+        //之前是在此处主动创建IOC容器的
+        //现在优化为从application作用域去获取
+        //beanFactory = new ClassPathXmlApplicationContext();
+        ServletContext application = getServletContext();//获取Servlet上下文
+        Object beanFactoryObj = application.getAttribute("beanFactory");
+        if(beanFactoryObj!=null){
+            beanFactory = (BeanFactory)beanFactoryObj ;
+        }else{
+            throw new RuntimeException("IOC容器获取失败！");
+        }
+
 
     }
 
