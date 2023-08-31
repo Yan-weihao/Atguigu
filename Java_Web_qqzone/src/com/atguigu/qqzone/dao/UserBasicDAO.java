@@ -9,7 +9,7 @@ public interface UserBasicDAO {
     public UserBasic getUserBasic(String loginId , String password);
     //根据用户id查询用户
     public UserBasic getUserBasicById(String Id);
-    //用户列表查询
-    public List<UserBasic> getUserBasicList(UserBasic userBasic);
+    //获取好友列表
+    public List<UserBasic> getFriendList(UserBasic userBasic);
 
 }

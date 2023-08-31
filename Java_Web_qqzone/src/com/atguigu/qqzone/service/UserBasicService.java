@@ -1,5 +1,6 @@
 package com.atguigu.qqzone.service;
 
+import com.atguigu.qqzone.pojo.Topic;
 import com.atguigu.qqzone.pojo.UserBasic;
 
 import java.util.List;
@@ -9,4 +10,6 @@ public interface UserBasicService {
     UserBasic login(String loginId, String password);
     //获取好友列表
     List<UserBasic> getFriendList(UserBasic userBasic);
+    //set日志列表
+    void setUserBasicList(Topic topic);
 }

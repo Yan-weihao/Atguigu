@@ -6,6 +6,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Java_Web_qqzone" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="bil" />
+          <element id="library" level="project" name="bil_thymeleaf" />
+        </element>
       </element>
       <element id="javaee-facet-resources" facet="Java_Web_qqzone/web/Web" />
     </root>

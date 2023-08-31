@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ConnUtil  {
     private static ThreadLocal<Connection> threadLocalConn = new ThreadLocal<>();
     public static final String DRIVE = "com.mysql.cj.jdbc.Driver";
-    public static final String URL = "jdbc:mysql://localhost:3306/qqzonedb";
+    public static final String URL = "jdbc:mysql://localhost:3306/fruitdb";
     public static final String USER = "root";
     public static final String PASSWORD = "123456";
     public static Connection createConn(){ //创建一个connection

@@ -13,9 +13,9 @@ public class UserBasic {
     private String password;
     private String headImg;
 
-    private UserDetail userDetail ;     //1:1
-    private List<Topic> topicList ;     //1:N
-    private List<UserBasic> friendList ;//M:N
+    private UserDetail userDetail ;     //1:1个人详细信息
+    private List<Topic> topicList ;     //1:N日志列表
+    private List<UserBasic> friendList ;//M:N 好友列表
 
     public UserBasic() {
     }

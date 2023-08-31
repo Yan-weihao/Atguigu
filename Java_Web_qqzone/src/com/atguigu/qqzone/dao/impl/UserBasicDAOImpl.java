@@ -1,4 +1,4 @@
-package com.atguigu.qqzone.dao.Impl;
+package com.atguigu.qqzone.dao.impl;
 
 import com.atguigu.myssm.baseDao.base.BaseDAO;
 import com.atguigu.qqzone.dao.UserBasicDAO;
@@ -11,7 +11,7 @@ public class UserBasicDAOImpl extends BaseDAO<UserBasic> implements UserBasicDAO
 
     @Override
     public UserBasic getUserBasic(String loginId, String password) {
-        return super.load("select * from t_user_basic where login_id=? and password=?", loginId, password);
+        return super.load("select * from t_user_basic where loginId = ? and pwd = ? ", loginId, password);
     }
 
     @Override
@@ -20,8 +20,8 @@ public class UserBasicDAOImpl extends BaseDAO<UserBasic> implements UserBasicDAO
     }
 
     @Override
-    public List<UserBasic> getUserBasicList(UserBasic userBasic) {
-        return super.executeQuery("SELECT fid as 'id' FROM t_friend WHERE uid = ?", userBasic);
+    public List<UserBasic> getFriendList(UserBasic userBasic) {
+        String sql = "select t3.id from t_user_basic t1 join t_friend t2 on t1.id=t2.uid join t_user_basic t3 on t2.fid = t3.id where t1.id = ?";
+        return super.executeQuery(sql, userBasic.getId());
     }
-
 }

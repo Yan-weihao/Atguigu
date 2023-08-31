@@ -9,7 +9,6 @@
     <bean id="fruit" class="com.atguigu.fruit.controllers.FruitController">
         <property name="fruitService" ref="fruitService"/>
     </bean>
-
 </beans>
 
 
