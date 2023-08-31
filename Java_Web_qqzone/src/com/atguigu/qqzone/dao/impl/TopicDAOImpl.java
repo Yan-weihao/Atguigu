@@ -11,7 +11,7 @@ public class TopicDAOImpl extends BaseDAO<Topic> implements TopicDAO {
 
      @Override
      public List<Topic> getTopicList(UserBasic userBasic) {
-          return super.executeQuery("select * from topic where author_id =?", userBasic.getId());
+          return super.executeQuery("select * from t_topic where author = ?", userBasic.getId());
      }
      
 }

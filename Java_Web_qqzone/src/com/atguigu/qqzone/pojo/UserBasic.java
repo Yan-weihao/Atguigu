@@ -10,12 +10,16 @@ public class UserBasic {
     private Integer id;
     private String loginId;
     private String nickName;
-    private String password;
+    private String pwd;
     private String headImg;
 
     private UserDetail userDetail ;     //1:1个人详细信息
     private List<Topic> topicList ;     //1:N日志列表
     private List<UserBasic> friendList ;//M:N 好友列表
+
+    public UserBasic(Integer id) {
+        this.id = id;
+    }
 
     public UserBasic() {
     }
@@ -44,12 +48,12 @@ public class UserBasic {
         this.nickName = nickName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public String getHeadImg() {

@@ -1,8 +1,6 @@
 package com.atguigu.myssm.baseDao.base;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,18 +64,40 @@ public abstract class BaseDAO <T>{ //抽象类
     }
 
     //通过反射技术给obj对象的property属性赋propertyValue值(将值给到响应的类)
-    protected void setValue(T entity, String columnName, Object columnValue) {
-        Class claszz = entity.getClass(); //或者
-        try {
-            Field field = claszz.getDeclaredField(columnName);
-            if (field!= null) {
-                field.setAccessible(true);
-                field.set(entity, columnValue);
+    private void setValue(Object obj ,  String property , Object propertyValue) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException {
+        Class clazz = obj.getClass();
+
+        //获取property这个字符串对应的属性名 ， 比如 "fid"  去找 obj对象中的 fid 属性
+        Field field = clazz.getDeclaredField(property);
+        if(field!=null){
+
+            //获取当前字段的类型名称
+            String typeName = field.getType().getName();
+            //判断如果是自定义类型，则需要调用这个自定义类的带一个参数的构造方法，创建出这个自定义的实例对象，然后将实例对象赋值给这个属性
+            if(isMyType(typeName)){
+                //假设typeName是"com.atguigu.qqzone.pojo.UserBasic"
+                Class typeNameClass = Class.forName(typeName);
+                Constructor constructor = typeNameClass.getDeclaredConstructor(java.lang.Integer.class);
+                propertyValue = constructor.newInstance(propertyValue);
             }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            field.setAccessible(true);
+            field.set(obj,propertyValue);
         }
     }
+
+
+    private static boolean isNotMyType(String typeName){
+        return "java.lang.Integer".equals(typeName)
+                || "java.lang.String".equals(typeName)
+                || "java.util.Date".equals(typeName)
+                || "java.sql.Date".equals(typeName)
+                || "java.sql.Timestamp".equals(typeName);
+    }
+
+    private static boolean isMyType(String typeName){
+        return !isNotMyType(typeName);
+    }
+
     //总数 返回例如统计结果
     protected Object [] cont(String sql, Object... params) {
         try {
@@ -125,7 +145,7 @@ public abstract class BaseDAO <T>{ //抽象类
                 }
                 list.add(entity);
             }
-        } catch (SQLException | InstantiationException | IllegalAccessException e) {
+        } catch (Exception e) {
             throw new DAOException("执行查询语句失败");
         }
         return list;
@@ -150,7 +170,7 @@ public abstract class BaseDAO <T>{ //抽象类
                 }
             }
             return entity;
-        } catch (SQLException | InstantiationException | IllegalAccessException e) {
+        } catch (Exception e) {
             throw new DAOException("执行单个查询语句失败");
         }
     }

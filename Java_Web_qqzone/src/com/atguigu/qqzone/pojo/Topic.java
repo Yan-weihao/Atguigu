@@ -1,5 +1,6 @@
 package com.atguigu.qqzone.pojo;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,10 @@ public class Topic {
    private List<Reply> comments; //1:M
 
     public Topic() {
+    }
+
+    public Topic(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
@@ -45,7 +50,7 @@ public class Topic {
         return topicDate;
     }
 
-    public void setTopicDate(Date topicDate) {
+    public void setTopicDate(Timestamp topicDate) {
         this.topicDate = topicDate;
     }
 
